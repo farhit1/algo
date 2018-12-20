@@ -22,16 +22,22 @@ def get_include_paths():
 
 
 if __name__ == '__main__':
+    if len(sys.argv) < 3:
+        print('Usage: python3 build.py [problem name] '
+              '[singletest|multitests] [problem build args ...]')
+        exit(0)
+
     sources = find_sources('task')
     problem_name = sys.argv[1]
     exec('from %s import add_sources' %\
          '.'.join(['problem', problem_name, 'build']))
     sources.extend(['main.cpp', 'solve.cpp'])
 
-    sources.extend(add_sources(sys.argv[2:]))
+    sources.extend(add_sources(sys.argv[3:]))
 
-    command = 'g++ --std=c++17 %s %s -o run' % (
+    command = 'g++ --std=c++17 %s %s -o run %s' % (
               ' '.join(sources),
-              ' '.join(['-I ' + path for path in get_include_paths()]))
+              ' '.join(['-I ' + path for path in get_include_paths()]),
+              '-DMULTITESTS' if sys.argv[2] == 'multitests' else '')
 
     os.system(command)
