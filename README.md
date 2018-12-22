@@ -131,7 +131,7 @@ Use `python3 build.py your_problem_name singletest` to build your problem
 (you can also use `multitests` instead of the last argument). 
 
 Building system will call `add_sources(args)` function from `problem/your_problem_name/build.py`.
-Here args is array of arguments passed to builder after described above.
+Here `args` is array of arguments passed to builder after ones described above.
 It should return an array of paths to `.cpp` files to be linked with your program.
 Don't forget to add file, which contains `getInput` and `getSolution` implementation.
 
